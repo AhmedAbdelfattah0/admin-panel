@@ -9,8 +9,19 @@
   max-height: 100vh;
   overflow-x: auto;
   overflow-y: hidden;
+
+}
+.sidebar{
   @include breakpoint(sm){
     display: none;
+  }
+}
+
+.content{
+  @include breakpoint(sm){
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 .nav-link {
