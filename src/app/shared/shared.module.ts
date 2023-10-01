@@ -5,13 +5,14 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 
 @NgModule({
   declarations: [
 
-    SidebarComponent,
+    // SidebarComponent,
     NavbarComponent,
 
   ],
@@ -19,16 +20,18 @@ import {MatInputModule} from '@angular/material/input';
     CommonModule,
     MatTableModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatPaginatorModule
 
   ],
   exports:[
     CommonModule,
     NavbarComponent,
-    SidebarComponent,
+    // SidebarComponent,
     MatTableModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatPaginatorModule
   ]
 })
 export class SharedModule { }
