@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductsComponent } from './features/pages/products/products.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,9 @@ import { SidebarComponent } from './shared/components/sidebar/sidebar.component'
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

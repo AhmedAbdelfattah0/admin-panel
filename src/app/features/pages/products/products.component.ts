@@ -1,10 +1,12 @@
+import { CommonDialogService } from './../../../shared/components/common-dialog/common-dialog.service';
 import { takeUntil } from 'rxjs/operators';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductsService } from '../../services/products.service';
 import { BaseComponent } from 'src/app/shared/components/base/base.component';
-import { Products } from './products.entity';
+import { Product } from './products.entity';
 import { MatPaginator } from '@angular/material/paginator';
+import { ProductDetailsComponent } from '../../components/product-details/product-details.component';
 
 @Component({
   selector: 'app-products',
@@ -13,11 +15,11 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class ProductsComponent extends BaseComponent implements OnInit {
   displayedColumns: string[] = ['id', 'title', 'price', 'category','actions'];
-  dataSource:MatTableDataSource<Products>
-  productsArray: Products[] = [];
+  dataSource:MatTableDataSource<Product>
+  productsArray: Product[] = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private productsService: ProductsService) {
+  constructor(private productsService: ProductsService,private commonDialogService:CommonDialogService) {
     super();
     this.productsService
       .getProductsList()
@@ -34,5 +36,26 @@ export class ProductsComponent extends BaseComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  delete(item:Product){
+    this.productsService
+    .deleteProduct(item.id)
+    .pipe(takeUntil(this.ngUnSubscribe))
+    .subscribe((res) => {
+      console.log(res);
+
+    })
+
+  }
+
+  viewDetails(item:Product){
+    this.commonDialogService.open({
+      data: {
+        component: ProductDetailsComponent,
+        title: item.title,
+        details:item
+      },
+    })
   }
 }

@@ -1,19 +1,27 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import {MatTableModule} from '@angular/material/table';
+ import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import { CommonDialogComponent } from './components/common-dialog/common-dialog.component';
+import { ProductDetailsComponent } from '../features/components/product-details/product-details.component';
+import {MatSelectModule} from '@angular/material/select';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
 @NgModule({
   declarations: [
 
-    // SidebarComponent,
-    NavbarComponent,
+     NavbarComponent,
+      CommonDialogComponent,
+    ProductDetailsComponent,
+
 
   ],
   imports: [
@@ -21,17 +29,29 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatTableModule,
     MatFormFieldModule,
     MatInputModule,
-    MatPaginatorModule
-
+    MatPaginatorModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDialogModule,
+    MatSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports:[
     CommonModule,
     NavbarComponent,
-    // SidebarComponent,
-    MatTableModule,
+     MatTableModule,
     MatFormFieldModule,
     MatInputModule,
-    MatPaginatorModule
-  ]
+    MatPaginatorModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDialogModule,
+    ProductDetailsComponent,
+    MatSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
+  providers: [{ provide: MAT_DIALOG_DATA, useValue: {} }, { provide: MatDialogRef, useValue: {} },],
 })
 export class SharedModule { }
