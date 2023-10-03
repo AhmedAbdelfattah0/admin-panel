@@ -2,7 +2,7 @@
   <div class="col-12 mt-5">
     <h1>Categories</h1>
   </div>
-  <div class="col-4">
+  <div class="col-10 col-md-6">
     <mat-form-field class="mat-mdc-form-field">
       <mat-label>Filter</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
@@ -18,7 +18,7 @@
 
 <div class="row mb-5 mt-3 ">
 
-  <div class="col-7 col-md-6">
+  <div class="col-12 col-md-8">
 
 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
