@@ -12,6 +12,25 @@ export class CategoriesService {
   }
 
   getCategoriesList() {
-    return  this.httpClient.get<String[]>(this.middlewareService.getCategories.url)
+    return  this.httpClient.get<string[]>(this.middlewareService.getCategories.url)
+  }
+
+
+  deleteCategory(category: string) {
+    return this.httpClient.delete<string>(
+      `${this.middlewareService.deleteCategory.url}/${category}`
+    );
+  }
+  updateCategory(category: string) {
+    return this.httpClient.put<string>(
+      `${this.middlewareService.updateCategory.url}/${category}`,
+      category
+    );
+  }
+  addCategory(category : string) {
+    return this.httpClient.post<string>(
+      this.middlewareService.addCategory.url,
+      category
+    );
   }
 }

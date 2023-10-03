@@ -10,6 +10,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateProductComponent } from './features/components/create-product/create-product.component';
+import { CategoriesComponent } from './features/pages/categories/categories.component';
+import { CategoryDetailsComponent } from './features/components/category-details/category-details.component';
+import { CreateCategoryComponent } from './features/components/create-category/create-category.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +20,9 @@ import { CreateProductComponent } from './features/components/create-product/cre
     ProductsComponent,
     SidebarComponent,
     CreateProductComponent,
+    CategoriesComponent,
+    CategoryDetailsComponent,
+    CreateCategoryComponent,
 
   ],
   imports: [

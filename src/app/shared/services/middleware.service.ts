@@ -10,6 +10,9 @@ export class MiddlewareService {
   updateProduct: { url: string; headers: string[] };
   addProduct: { url: string; headers: string[] };
   getCategories: { url: string; headers: string[] };
+  deleteCategory: { url: string; headers: string[] };
+  updateCategory: { url: string; headers: string[] };
+  addCategory: { url: string; headers: string[] };
   constructor() {
     this.buildUrls();
   }
@@ -32,6 +35,18 @@ export class MiddlewareService {
       headers:[]
     }
     this.getCategories={
+      url: `${environment.baseUrl}/products/categories`,
+      headers:[]
+    }
+    this.deleteCategory={
+      url: `${environment.baseUrl}/products/categories`,
+      headers:[]
+    }
+    this.updateCategory={
+      url: `${environment.baseUrl}/products/categories`,
+      headers:[]
+    }
+    this.addCategory={
       url: `${environment.baseUrl}/products/categories`,
       headers:[]
     }
