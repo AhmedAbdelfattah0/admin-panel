@@ -7,6 +7,7 @@ import { BaseComponent } from 'src/app/shared/components/base/base.component';
 import { Product } from './products.entity';
 import { MatPaginator } from '@angular/material/paginator';
 import { ProductDetailsComponent } from '../../components/product-details/product-details.component';
+import { CreateProductComponent } from '../../components/create-product/create-product.component';
 
 @Component({
   selector: 'app-products',
@@ -14,19 +15,22 @@ import { ProductDetailsComponent } from '../../components/product-details/produc
   styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent extends BaseComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'title', 'price', 'category','actions'];
-  dataSource:MatTableDataSource<Product>
+  displayedColumns: string[] = ['id', 'title', 'price', 'category', 'actions'];
+  dataSource: MatTableDataSource<Product>;
   productsArray: Product[] = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private productsService: ProductsService,private commonDialogService:CommonDialogService) {
+  constructor(
+    private productsService: ProductsService,
+    private commonDialogService: CommonDialogService
+  ) {
     super();
     this.productsService
       .getProductsList()
       .pipe(takeUntil(this.ngUnSubscribe))
       .subscribe((res) => {
         this.productsArray = res;
-        this.dataSource = new MatTableDataSource(this.productsArray)
+        this.dataSource = new MatTableDataSource(this.productsArray);
         this.dataSource.paginator = this.paginator;
       });
   }
@@ -38,24 +42,29 @@ export class ProductsComponent extends BaseComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  delete(item:Product){
+  delete(item: Product) {
     this.productsService
-    .deleteProduct(item.id)
-    .pipe(takeUntil(this.ngUnSubscribe))
-    .subscribe((res) => {
-      console.log(res);
-
-    })
-
+      .deleteProduct(item.id)
+      .pipe(takeUntil(this.ngUnSubscribe))
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
 
-  viewDetails(item:Product){
+  viewDetails(item: Product) {
     this.commonDialogService.open({
       data: {
         component: ProductDetailsComponent,
         title: item.title,
-        details:item
+        details: item,
       },
-    })
+    });
+  }
+  addProduct() {
+    this.commonDialogService.open({
+      data: {
+        component: CreateProductComponent,
+      },
+    });
   }
 }

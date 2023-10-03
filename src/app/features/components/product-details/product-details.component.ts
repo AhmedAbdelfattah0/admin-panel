@@ -5,6 +5,7 @@ import { BaseComponent } from 'src/app/shared/components/base/base.component';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProductsService } from '../../services/products.service';
+import { CategoriesService } from '../../services/categories.service';
 
 @Component({
   selector: 'app-product-details',
@@ -13,10 +14,12 @@ import { ProductsService } from '../../services/products.service';
 })
 export class ProductDetailsComponent extends BaseComponent implements OnInit {
   productForm: FormGroup;
+  categories: String[];
   constructor(
     private commonDialogService: CommonDialogService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private productsService:ProductsService
+    private productsService: ProductsService,
+    private categoriesService: CategoriesService
   ) {
     super();
     this.productForm = new FormGroup({
@@ -34,6 +37,13 @@ export class ProductDetailsComponent extends BaseComponent implements OnInit {
           this.updateProduct();
         }
       });
+
+    this.categoriesService
+      .getCategoriesList()
+      .pipe(takeUntil(this.ngUnSubscribe))
+      .subscribe((res) => {
+        this.categories = res;
+      });
   }
 
   ngOnInit(): void {}
@@ -45,9 +55,11 @@ export class ProductDetailsComponent extends BaseComponent implements OnInit {
     };
 
     this.productsService.updateProduct(productData).subscribe({
-      next: (v) =>this.commonDialogService.confirmButtonEmitter.next(false),
-      error: (e) =>this.commonDialogService.confirmButtonEmitter.next(false),
-
-    }
-  )}
+      next: (v) => {
+        this.commonDialogService.confirmButtonEmitter.next(false),
+        this.productsService.getProductsList().subscribe()
+      },
+      error: (e) => this.commonDialogService.confirmButtonEmitter.next(false),
+    });
+  }
 }

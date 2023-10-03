@@ -6,22 +6,34 @@ import { MiddlewareService } from 'src/app/shared/services/middleware.service';
 import { Product } from '../pages/products/products.entity';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductsService {
-
-  constructor( private httpClient:HttpClient, private middlewareService: MiddlewareService ) {
-    }
+  constructor(
+    private httpClient: HttpClient,
+    private middlewareService: MiddlewareService
+  ) {}
 
   getProductsList() {
-    return  this.httpClient.get<Product[]>(this.middlewareService.getProducts.url)
+    return this.httpClient.get<Product[]>(
+      this.middlewareService.getProducts.url
+    );
   }
-  deleteProduct(productId:number) {
-    return  this.httpClient.delete<Product>(`${this.middlewareService.deleteProduct.url}/${productId}`)
+  deleteProduct(productId: number) {
+    return this.httpClient.delete<Product>(
+      `${this.middlewareService.deleteProduct.url}/${productId}`
+    );
   }
-  updateProduct(productData:Product) {
-    return  this.httpClient.put<Product>(`${this.middlewareService.updateProduct.url}/${productData.id}`,productData)
+  updateProduct(productData: Product) {
+    return this.httpClient.put<Product>(
+      `${this.middlewareService.updateProduct.url}/${productData.id}`,
+      productData
+    );
   }
-
-
+  addProduct(productData: Product) {
+    return this.httpClient.post<Product>(
+      this.middlewareService.addProduct.url,
+      productData
+    );
+  }
 }

@@ -9,12 +9,14 @@ import { ProductsComponent } from './features/pages/products/products.component'
 import { HttpClientModule } from '@angular/common/http';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CreateProductComponent } from './features/components/create-product/create-product.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductsComponent,
     SidebarComponent,
+    CreateProductComponent,
 
   ],
   imports: [
