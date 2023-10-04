@@ -13,6 +13,7 @@ export class MiddlewareService {
   deleteCategory: { url: string; headers: string[] };
   updateCategory: { url: string; headers: string[] };
   addCategory: { url: string; headers: string[] };
+  login: { url: string; headers: string[] };
   constructor() {
     this.buildUrls();
   }
@@ -48,6 +49,10 @@ export class MiddlewareService {
     }
     this.addCategory={
       url: `${environment.baseUrl}/products/categories`,
+      headers:[]
+    }
+    this.login={
+      url: `${environment.baseUrl}/auth/login`,
       headers:[]
     }
   }

@@ -13,6 +13,7 @@ import { CreateProductComponent } from './features/components/create-product/cre
 import { CategoriesComponent } from './features/pages/categories/categories.component';
 import { CategoryDetailsComponent } from './features/components/category-details/category-details.component';
 import { CreateCategoryComponent } from './features/components/create-category/create-category.component';
+import { LoginComponent } from './features/pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { CreateCategoryComponent } from './features/components/create-category/c
     CategoriesComponent,
     CategoryDetailsComponent,
     CreateCategoryComponent,
+    LoginComponent,
 
   ],
   imports: [

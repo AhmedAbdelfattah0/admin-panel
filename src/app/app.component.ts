@@ -1,3 +1,4 @@
+import { AuthService } from './features/services/auth.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,5 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'admin-panel';
-  isLoggedIn:boolean=true
+  isLoggedIn:boolean=false
+  constructor( private authService:AuthService){
+    this.authService.isLoggedIn()
+    this.authService.isLoggedInEmiter.subscribe((res)=>{
+      this.isLoggedIn =res
+    })
+  }
 }
