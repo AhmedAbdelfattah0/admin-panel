@@ -5,25 +5,35 @@ import { Login } from '../pages/login/login.entity';
 import { AppConstant } from 'src/app/shared/constants/app.conestant';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import jwt_decode from 'jwt-decode';
+import { DatastoreService } from 'src/app/shared/services/datastore.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   isLoggedInEmiter: BehaviorSubject<any> = new BehaviorSubject(false);
+  loginErrorEmitter: BehaviorSubject<any> = new BehaviorSubject(null);
+  decodedAccessToken: any = null;
   constructor(
     private httpClient: HttpClient,
     private middlewareService: MiddlewareService,
-    private route: Router
+    private route: Router,
+    private datastoreService: DatastoreService
   ) {}
 
   login(user: Login) {
     return this.httpClient
       .post(this.middlewareService.login.url, user)
-      .subscribe((res: any) => {
-        localStorage.setItem(AppConstant.USER_TOKEN, res['token']);
-        this.route.navigate(['/products']);
-        this.isLoggedInEmiter.next(true);
+      .subscribe({
+        next: (res: any) => {
+          this.datastoreService.setInLocalStorage(AppConstant.USER_TOKEN, res['token'],false);
+          this.decodedAccessToken = this.getDecodedAccessToken(res['token']);
+          this.route.navigate(['/products']);
+          this.isLoggedInEmiter.next(true);
+          this.getAllUsers();
+        },
+        error: (e) => this.loginErrorEmitter.next(e),
       });
   }
 
@@ -33,15 +43,37 @@ export class AuthService {
       return true;
     } else {
       this.isLoggedInEmiter.next(false);
-
-      this.route.navigate(['/login']);
       return false;
     }
   }
+
   logOut() {
     localStorage.clear();
     this.isLoggedInEmiter.next(false);
 
     this.route.navigate(['/login']);
+  }
+
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    } catch (Error) {
+      return null;
+    }
+  }
+
+  getAllUsers() {
+    return this.httpClient
+      .get(this.middlewareService.getAllUsers.url)
+      .subscribe((res: any) => {
+        let user = res.find(
+          (user: any) => user.username == this.decodedAccessToken.user
+        );
+        this.datastoreService.setInLocalStorage(
+          AppConstant.USER_INFO,
+          user,
+          true
+        );
+      });
   }
 }

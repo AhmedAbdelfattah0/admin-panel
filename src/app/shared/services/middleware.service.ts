@@ -14,6 +14,7 @@ export class MiddlewareService {
   updateCategory: { url: string; headers: string[] };
   addCategory: { url: string; headers: string[] };
   login: { url: string; headers: string[] };
+  getAllUsers: { url: string; headers: string[] };
   constructor() {
     this.buildUrls();
   }
@@ -53,6 +54,10 @@ export class MiddlewareService {
     }
     this.login={
       url: `${environment.baseUrl}/auth/login`,
+      headers:[]
+    }
+    this.getAllUsers={
+      url: `${environment.baseUrl}/users`,
       headers:[]
     }
   }

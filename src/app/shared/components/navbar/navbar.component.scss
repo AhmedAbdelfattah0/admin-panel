@@ -2,10 +2,7 @@
 @import '../../../../styles.scss';
 
 .navbar-display{
-  // @include breakpoint(sm){
-  //   display: block !important;
-  // }
-  // display: none !important;
+
 
 
   position: absolute;
@@ -21,4 +18,12 @@
     right: 0;
     left: 0;
     z-index: 1030;  }
+}
+
+.links-display{
+  display: none !important;
+
+   @include breakpoint(sm){
+    display: unset !important;
+  }
 }
