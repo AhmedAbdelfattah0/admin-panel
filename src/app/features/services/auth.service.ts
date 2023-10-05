@@ -26,12 +26,14 @@ export class AuthService {
     return this.httpClient
       .post(this.middlewareService.login.url, user)
       .subscribe({
-        next: (res: any) => {
-          this.datastoreService.setInLocalStorage(AppConstant.USER_TOKEN, res['token'],false);
+        next: async (res: any) => {
+
           this.decodedAccessToken = this.getDecodedAccessToken(res['token']);
+        await this.getAllUsers();
+          this.datastoreService.setInLocalStorage(AppConstant.USER_TOKEN, res['token'],false);
+
           this.route.navigate(['/products']);
           this.isLoggedInEmiter.next(true);
-          this.getAllUsers();
         },
         error: (e) => this.loginErrorEmitter.next(e),
       });
@@ -62,10 +64,10 @@ export class AuthService {
     }
   }
 
-  getAllUsers() {
+ async getAllUsers() {
     return this.httpClient
       .get(this.middlewareService.getAllUsers.url)
-      .subscribe((res: any) => {
+      .toPromise().then((res: any) => {
         let user = res.find(
           (user: any) => user.username == this.decodedAccessToken.user
         );

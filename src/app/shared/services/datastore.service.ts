@@ -19,6 +19,6 @@ export class DatastoreService {
 
   getItemFromLocalStorage(key: string, isJsonData: boolean) {
     let data = localStorage.getItem(key);
-    return isJsonData ? JSON.parse(<any>data) : data;
+    return isJsonData ? data? JSON.parse(<any>data): data : data;
   }
 }
